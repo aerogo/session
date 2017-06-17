@@ -2,6 +2,6 @@ package session
 
 // Store ...
 type Store interface {
-	Get(string) *Session
-	Set(string, *Session)
+	Get(string) (*Session, error)
+	Set(string, *Session) error
 }
