@@ -51,13 +51,14 @@ func (session *Session) GetString(key string) string {
 // Set sets the value for the key in this session.
 func (session *Session) Set(key string, value interface{}) {
 	session.lock.Lock()
+
 	if value == nil {
 		delete(session.data, key)
 	} else {
 		session.data[key] = value
 	}
-	session.lock.Unlock()
 
+	session.lock.Unlock()
 	session.modified = true
 }
 
