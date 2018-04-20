@@ -5,17 +5,21 @@ import "sync"
 // Session ...
 type Session struct {
 	id       string
-	data     map[string]interface{}
-	lock     sync.RWMutex
+	data     sync.Map
 	modified bool
 }
 
 // New creates a new session with the given ID and data.
 func New(sid string, baseData map[string]interface{}) *Session {
-	return &Session{
-		id:   sid,
-		data: baseData,
+	session := &Session{
+		id: sid,
 	}
+
+	for key, value := range baseData {
+		session.data.Store(key, value)
+	}
+
+	return session
 }
 
 // ID returns the session ID.
@@ -25,9 +29,7 @@ func (session *Session) ID() string {
 
 // Get returns the value for the key in this session.
 func (session *Session) Get(key string) interface{} {
-	session.lock.RLock()
-	value := session.data[key]
-	session.lock.RUnlock()
+	value, _ := session.data.Load(key)
 	return value
 }
 
@@ -50,15 +52,12 @@ func (session *Session) GetString(key string) string {
 
 // Set sets the value for the key in this session.
 func (session *Session) Set(key string, value interface{}) {
-	session.lock.Lock()
-
 	if value == nil {
-		delete(session.data, key)
+		session.data.Delete(key)
 	} else {
-		session.data[key] = value
+		session.data.Store(key, value)
 	}
 
-	session.lock.Unlock()
 	session.modified = true
 }
 
@@ -69,15 +68,12 @@ func (session *Session) Modified() bool {
 
 // Data returns a copy of the underlying session data.
 func (session *Session) Data() map[string]interface{} {
-	if session.data == nil {
-		return nil
-	}
-
 	newMap := map[string]interface{}{}
 
-	for key, value := range session.data {
-		newMap[key] = value
-	}
+	session.data.Range(func(key, value interface{}) bool {
+		newMap[key.(string)] = value
+		return true
+	})
 
 	return newMap
 }
