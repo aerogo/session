@@ -69,6 +69,10 @@ func (session *Session) Modified() bool {
 
 // Data returns a copy of the underlying session data.
 func (session *Session) Data() map[string]interface{} {
+	if session.data == nil {
+		return nil
+	}
+
 	newMap := map[string]interface{}{}
 
 	for key, value := range session.data {
