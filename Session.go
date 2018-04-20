@@ -67,9 +67,13 @@ func (session *Session) Modified() bool {
 	return session.modified
 }
 
-// Data returns the underlying session data.
-// READING OR WRITING DATA IS NOT THREAD-SAFE.
-// Use Set() and Get() to modify data safely.
+// Data returns a copy of the underlying session data.
 func (session *Session) Data() map[string]interface{} {
-	return session.data
+	newMap := map[string]interface{}{}
+
+	for key, value := range session.data {
+		newMap[key] = value
+	}
+
+	return newMap
 }
