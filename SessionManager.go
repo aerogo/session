@@ -1,6 +1,9 @@
 package session
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // Manager ...
 type Manager struct {
@@ -23,6 +26,11 @@ func (manager *Manager) New() *Session {
 	}
 
 	session := New(sessionID, sessionData)
-	manager.Store.Set(session.id, session)
+	err := manager.Store.Set(session.id, session)
+
+	if err != nil {
+		fmt.Println("Error saving session in the session store:", err)
+	}
+
 	return session
 }
