@@ -1,0 +1,2 @@
+# {name}
+Session manager.
