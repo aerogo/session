@@ -4,4 +4,5 @@ package session
 type Store interface {
 	Get(string) (*Session, error)
 	Set(string, *Session) error
+	Delete(string)
 }

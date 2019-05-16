@@ -2,7 +2,7 @@ package session
 
 import "sync"
 
-// Session represents the session information
+// ession represents the session information
 // in a single request & response context.
 type Session struct {
 	id       string
@@ -53,12 +53,13 @@ func (session *Session) GetString(key string) string {
 
 // Set sets the value for the key in this session.
 func (session *Session) Set(key string, value interface{}) {
-	if value == nil {
-		session.data.Delete(key)
-	} else {
-		session.data.Store(key, value)
-	}
+	session.data.Store(key, value)
+	session.modified = true
+}
 
+// Delete deletes the the key/value entry in this session.
+func (session *Session) Delete(key string) {
+	session.data.Delete(key)
 	session.modified = true
 }
 
