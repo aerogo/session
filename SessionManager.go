@@ -5,7 +5,8 @@ import (
 	"time"
 )
 
-// Manager ...
+// Manager generates new sessions with the specified
+// duration and within the given storage backend.
 type Manager struct {
 	Store Store
 

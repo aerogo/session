@@ -2,7 +2,8 @@ package session
 
 import "sync"
 
-// Session ...
+// Session represents the session information
+// in a single request & response context.
 type Session struct {
 	id       string
 	data     sync.Map
