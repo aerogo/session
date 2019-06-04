@@ -1,7 +1,7 @@
 package session
 
 import (
-	"github.com/google/uuid"
+	"github.com/akyoto/uuid"
 )
 
 // sessionIDLength is a constant defining the length of session IDs.
