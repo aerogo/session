@@ -1,4 +1,4 @@
-github.com/akyoto/assert v0.1.3 h1:LlMrUom/k6Sp8GqptQqk3Cr6aDxxODbQO6AGIBB2oiY=
-github.com/akyoto/assert v0.1.3/go.mod h1:g5e6ag+ksCEQENq/LnmU9z04wCAIFDr8KacBusVL0H8=
+github.com/akyoto/assert v0.2.3 h1:ftENRGDEK5AKuKmZb9LtbDIHeE8p8cIYI4M92CbA9nE=
+github.com/akyoto/assert v0.2.3/go.mod h1:g5e6ag+ksCEQENq/LnmU9z04wCAIFDr8KacBusVL0H8=
 github.com/akyoto/uuid v1.1.3 h1:FEz14tNTfaUeY0Jrkz2F17rjKiks6hOALGcPmAmtn1s=
 github.com/akyoto/uuid v1.1.3/go.mod h1:8dgzDQyrpuApBGIQHOX7JkvCZHusXZ0tGlQcxxv4bYg=
