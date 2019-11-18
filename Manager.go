@@ -2,6 +2,7 @@ package session
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 )
 
@@ -12,6 +13,9 @@ type Manager struct {
 
 	// Session duration in seconds
 	Duration int
+
+	// SameSite attribute for cookies
+	SameSite http.SameSite
 }
 
 // New creates a new session.
@@ -34,4 +38,17 @@ func (manager *Manager) New() *Session {
 	}
 
 	return session
+}
+
+// Cookie creates a cookie for the given session.
+func (manager *Manager) Cookie(session *Session) *http.Cookie {
+	return &http.Cookie{
+		Name:     "sid",
+		Value:    session.ID(),
+		HttpOnly: true,
+		Secure:   true,
+		MaxAge:   manager.Duration,
+		Path:     "/",
+		SameSite: manager.SameSite,
+	}
 }
